@@ -10,7 +10,14 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class PictureActivity extends ActionBarActivity {
 
@@ -24,6 +31,7 @@ public class PictureActivity extends ActionBarActivity {
     private int imageWidth;
     private int screenWidth;
     private int screenHeight;
+    public SeekBar cropSeek;
 
 
     @Override
@@ -32,6 +40,7 @@ public class PictureActivity extends ActionBarActivity {
         setContentView(R.layout.activity_picture);
 
         imageView = (ImageView) findViewById(R.id.imageView);
+        cropSeek = (SeekBar) findViewById(R.id.cropBar);
 
         Intent receiveIntent = getIntent();
         imagePath = receiveIntent.getStringExtra("ImagePath");
@@ -52,11 +61,32 @@ public class PictureActivity extends ActionBarActivity {
 
 
         pixels = new int[imageHeight * imageWidth];
-        picture.getPixels(pixels, 0, imageWidth, 0, 30, imageWidth, imageWidth);
+        picture.getPixels(pixels, 0, imageWidth, 0, screenHeight/4, imageWidth, imageWidth);
         bitmap = Bitmap.createBitmap(pixels, imageWidth, imageWidth, Config.ARGB_8888);
         imageView.getLayoutParams().height = screenWidth;
         imageView.getLayoutParams().width = screenWidth;
         imageView.setImageBitmap(bitmap);
+
+        cropSeek.setMax(imageHeight/2);
+        cropSeek.setProgress(imageHeight/4);
+        cropSeek.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            int progressChanged = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                progressChanged = progress;
+                setCrop(progress);
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
 
     }
 
@@ -81,5 +111,43 @@ public class PictureActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void saveTexture(View view){
+        Log.d("Debug", "Save Texture");
+        imageView.buildDrawingCache();
+        Bitmap newBitmap = imageView.getDrawingCache();
+        File file = new File(imagePath);
+        try{
+            FileOutputStream fOut = new FileOutputStream(file);
+
+            newBitmap.compress(Bitmap.CompressFormat.PNG, 85, fOut);
+            try{
+                fOut.flush();
+                fOut.close();
+            } catch(java.io.IOException error){
+                Log.d("Debug", "IOException");
+            }
+
+        } catch (FileNotFoundException e ){
+            Log.d("Debug", "FileNotFound");
+
+        }
+
+    }
+
+    public void setCrop(int y){
+        Log.d("Debug", "Y is: " + String.valueOf(y));
+        Log.d("Debug", "ImageHeight/2 is: " + String.valueOf(imageHeight/2));
+        Log.d("Debug", "Imageview is: " + String.valueOf(imageView.getHeight()));
+        try{
+            picture.getPixels(pixels, 0, imageWidth, 0, y, imageWidth, imageWidth);
+
+        } catch(IllegalArgumentException e){
+
+        }
+        bitmap = Bitmap.createBitmap(pixels, imageWidth, imageWidth, Config.ARGB_8888);
+        imageView.setImageBitmap(bitmap);
     }
 }

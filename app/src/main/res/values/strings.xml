@@ -4,9 +4,10 @@
     <string name="take_new_texture">Take New Texture</string>
     <string name="view_textures">View Textures</string>
     <string name="send_texture">Send Texture</string>
+    <string name="save_texture">Save Texture</string>
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_picture">PictureActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+
 </resources>
