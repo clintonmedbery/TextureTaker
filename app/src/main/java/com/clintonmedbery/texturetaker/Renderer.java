@@ -11,6 +11,7 @@ import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
 import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.Texture;
+import org.rajawali3d.math.vector.Vector3;
 import org.rajawali3d.primitives.Cube;
 import org.rajawali3d.renderer.RajawaliRenderer;
 
@@ -46,6 +47,7 @@ public class Renderer extends RajawaliRenderer {
         getCurrentScene().addLight(light);
         cube = new Cube(1.0F);
         Material material = new Material();
+        material.setColor(0);
 
 
         material.enableLighting(true);
@@ -64,9 +66,14 @@ public class Renderer extends RajawaliRenderer {
         getCurrentCamera().setZ(4.2f);
     }
 
-
+    @Override
+    public void onRender(final long elapsedTime, final double deltaTime) {
+        super.onRender(elapsedTime, deltaTime);
+        cube.rotate(Vector3.Axis.Y, 0.5);
+    }
 
     public void onTouchEvent(MotionEvent event){
+
 
     }
 
