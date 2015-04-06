@@ -7,6 +7,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -26,6 +27,14 @@
         <activity
             android:name=".PictureActivity"
             android:label="@string/title_activity_picture" >
+        </activity>
+        <activity
+            android:name=".RenderActivity"
+            android:label="@string/title_activity_render" >
+        </activity>
+        <activity
+            android:name=".RajawaliExampleActivity"
+            android:label="@string/title_activity_rajawali_example" >
         </activity>
     </application>
 
