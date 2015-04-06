@@ -1,6 +1,9 @@
 package com.clintonmedbery.texturetaker;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
@@ -20,11 +23,19 @@ public class RenderActivity extends ActionBarActivity {
     private int screenWidth;
     private int screenHeight;
 
+    private Bitmap picture;
+    private String imagePath;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_render);
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+
+
+        Intent receiveIntent = getIntent();
+        imagePath = receiveIntent.getStringExtra("ImagePath");
+        picture = BitmapFactory.decodeFile(imagePath);
 
         final RajawaliSurfaceView surface = new RajawaliSurfaceView(this);
         surface.setFrameRate(60.0);
@@ -33,11 +44,8 @@ public class RenderActivity extends ActionBarActivity {
         // Add mSurface to your root view
         addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
-        renderer = new Renderer(this);
+        renderer = new Renderer(this, picture);
         surface.setSurfaceRenderer(renderer);
-
-
-
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);

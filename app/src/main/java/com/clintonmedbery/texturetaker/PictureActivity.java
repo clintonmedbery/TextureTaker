@@ -84,7 +84,8 @@ public class PictureActivity extends ActionBarActivity {
             }
         });
 
-
+        Log.d("Debug", "Image View Height is: " + imageView.getLayoutParams().height);
+        Log.d("Debug", "Image View Width is: " + imageView.getLayoutParams().width);
 
     }
 
@@ -98,6 +99,13 @@ public class PictureActivity extends ActionBarActivity {
         Log.d("Debug", "Save Texture");
         imageView.buildDrawingCache();
         Bitmap newBitmap = imageView.getDrawingCache();
+        newBitmap.setHeight(imageView.getLayoutParams().height);
+        Log.d("Debug", "Image View Height is: " + imageView.getLayoutParams().height);
+        Log.d("Debug", "Image View Width is: " + imageView.getLayoutParams().width);
+        Log.d("Debug", "NEW BITMAP Height is: " + newBitmap.getHeight());
+        Log.d("Debug", "NEW BITMAP Width is: " + newBitmap.getWidth());
+
+
         File file = new File(imagePath);
         try{
             FileOutputStream fOut = new FileOutputStream(file);
