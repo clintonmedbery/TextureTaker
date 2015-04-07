@@ -13,8 +13,9 @@ import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import org.rajawali3d.surface.IRajawaliSurface;
 import org.rajawali3d.surface.RajawaliSurfaceView;
@@ -23,7 +24,7 @@ import org.rajawali3d.surface.RajawaliSurfaceView;
 public class RenderActivity extends ActionBarActivity implements GestureDetector.OnGestureListener {
 
     Renderer renderer;
-    public FrameLayout frameLayout;
+    public RelativeLayout relativeLayout;
     private int screenWidth;
     private int screenHeight;
 
@@ -43,7 +44,7 @@ public class RenderActivity extends ActionBarActivity implements GestureDetector
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_render);
-        frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        relativeLayout = (RelativeLayout) findViewById(R.id.renderLayout);
 
         detector = new GestureDetectorCompat(this, this);
 
@@ -95,6 +96,18 @@ public class RenderActivity extends ActionBarActivity implements GestureDetector
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setPlane(View view){
+        renderer.switchToPlane();
+    }
+
+    public void setCube(View view){
+        renderer.switchToCube();
+    }
+
+    public void setSphere(View view){
+        renderer.switchToSphere();
     }
 
     @Override

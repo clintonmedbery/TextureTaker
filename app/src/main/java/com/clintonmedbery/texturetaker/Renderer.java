@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import org.rajawali3d.Object3D;
-import org.rajawali3d.lights.DirectionalLight;
+import org.rajawali3d.lights.PointLight;
 import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
 import org.rajawali3d.materials.textures.ATexture;
@@ -23,7 +23,7 @@ import org.rajawali3d.renderer.RajawaliRenderer;
  */
 public class Renderer extends RajawaliRenderer {
 
-    public DirectionalLight light;
+    public PointLight light;
     public Cube cube;
     public Sphere sphere;
     public Plane plane;
@@ -49,14 +49,14 @@ public class Renderer extends RajawaliRenderer {
     }
 
     public void initScene() {
-        light = new DirectionalLight(1f, 0.2f, -1.0f); // set the direction
+        light = new PointLight();
         light.setColor(1.0f, 1.0f, 1.0f);
-        light.setPower(2);
+        light.setPower(12);
         getCurrentScene().addLight(light);
 
         cube = new Cube(2.0F);
         sphere = new Sphere(1, 24, 24);
-        plane = new Plane(1, 1, 3, 3);
+        plane = new Plane(2, 2, 3, 3);
 
 
         Material material = new Material();
@@ -81,9 +81,17 @@ public class Renderer extends RajawaliRenderer {
         plane.setVisible(false);
 
 
+
         cube.setRotY(cube.getRotY() + 45);
         cube.setRotY(cube.getRotX() + 45);
+
+        plane.setRotX(plane.getRotX() + 190);
+        plane.setRotY(plane.getRotY() + 190);
+
         cube.setMaterial(material);
+        plane.setMaterial(material);
+        sphere.setMaterial(material);
+
         currentObject = cube;
 
         getCurrentCamera().setZ(4.2f);
@@ -169,5 +177,25 @@ public class Renderer extends RajawaliRenderer {
 
     }
 
+    public void switchToPlane(){
+        sphere.setVisible(false);
+        cube.setVisible(false);
+        plane.setVisible(true);
+        currentObject = plane;
+    }
+
+    public void switchToCube(){
+        sphere.setVisible(false);
+        cube.setVisible(true);
+        plane.setVisible(false);
+        currentObject = cube;
+    }
+
+    public void switchToSphere(){
+        sphere.setVisible(true);
+        cube.setVisible(false);
+        plane.setVisible(false);
+        currentObject = sphere;
+    }
 
 }
