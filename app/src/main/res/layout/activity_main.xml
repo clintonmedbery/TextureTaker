@@ -43,5 +43,6 @@
         android:layout_centerHorizontal="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/textColor"
-        android:background="@color/button_background" />
+        android:background="@color/button_background"
+        android:onClick="pickImage" />
 </RelativeLayout>

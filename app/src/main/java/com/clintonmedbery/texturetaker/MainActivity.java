@@ -21,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int MEDIA_TYPE_IMAGE = 2;
+    static final int SELECT_PHOTO = 3;
     public Uri imageUri;
 
 
@@ -76,6 +77,15 @@ public class MainActivity extends ActionBarActivity {
             startActivity(editIntent);
         }
 
+        //if(requestCode == SELECT_PHOTO && resultCode == RESULT_OK){
+            //Log.d("Debug", imageUri.getPath());
+
+            //Intent editIntent = new Intent(this, PictureActivity.class);
+            //editIntent.putExtra("ImagePath", imageUri.getPath());
+            //Log.d("Debug", imageUri.getPath());
+            //startActivity(editIntent);
+        //}
+
     }
 
     public Uri getOutputMediaFileUri(int type) {
@@ -83,8 +93,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private static File getOutputMediaFile(int type){
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
+
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "TextureTaker");
@@ -112,4 +121,16 @@ public class MainActivity extends ActionBarActivity {
         return mediaFile;
     }
 
+
+    public void pickImage(View view){
+        //Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        //photoPickerIntent.setType("image/*");
+
+        //startActivityForResult(photoPickerIntent, SELECT_PHOTO);
+
+        Intent pickerIntent = new Intent(this, ImagePickerActivity.class);
+
+
+        startActivity(pickerIntent);
+    }
 }

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import org.rajawali3d.Camera;
 import org.rajawali3d.lights.DirectionalLight;
 import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
@@ -13,6 +12,7 @@ import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.Texture;
 import org.rajawali3d.math.vector.Vector3;
 import org.rajawali3d.primitives.Cube;
+import org.rajawali3d.primitives.Sphere;
 import org.rajawali3d.renderer.RajawaliRenderer;
 
 
@@ -23,8 +23,9 @@ public class Renderer extends RajawaliRenderer {
 
     public DirectionalLight light;
     public Cube cube;
+    public Sphere sphere;
     public Context context;
-    public Camera camera;
+
     private Bitmap picture;
 
     public Renderer(Context context, Bitmap bitmap) {
@@ -45,7 +46,11 @@ public class Renderer extends RajawaliRenderer {
         light.setColor(1.0f, 1.0f, 1.0f);
         light.setPower(2);
         getCurrentScene().addLight(light);
-        cube = new Cube(1.0F);
+
+        cube = new Cube(2.0F);
+        //sphere = new Sphere(1, 24, 24);
+
+
         Material material = new Material();
         material.setColor(0);
 
@@ -63,6 +68,8 @@ public class Renderer extends RajawaliRenderer {
         cube.setRotY(cube.getRotY() + 45);
         cube.setRotY(cube.getRotX() + 45);
         cube.setMaterial(material);
+
+
         getCurrentCamera().setZ(4.2f);
     }
 

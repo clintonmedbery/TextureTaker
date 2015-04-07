@@ -12,6 +12,8 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_rajawali_example">RajawaliExampleActivity</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_activity_image_picker">ImagePickerActivity</string>
 
 
 </resources>
