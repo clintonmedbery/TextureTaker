@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import org.rajawali3d.Object3D;
 import org.rajawali3d.lights.DirectionalLight;
 import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
@@ -12,6 +13,7 @@ import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.Texture;
 import org.rajawali3d.math.vector.Vector3;
 import org.rajawali3d.primitives.Cube;
+import org.rajawali3d.primitives.Plane;
 import org.rajawali3d.primitives.Sphere;
 import org.rajawali3d.renderer.RajawaliRenderer;
 
@@ -24,7 +26,12 @@ public class Renderer extends RajawaliRenderer {
     public DirectionalLight light;
     public Cube cube;
     public Sphere sphere;
+    public Plane plane;
     public Context context;
+    public Object3D currentObject;
+
+    private float currentXRotation;
+    private float currentYRotation;
 
     private Bitmap picture;
 
@@ -48,7 +55,8 @@ public class Renderer extends RajawaliRenderer {
         getCurrentScene().addLight(light);
 
         cube = new Cube(2.0F);
-        //sphere = new Sphere(1, 24, 24);
+        sphere = new Sphere(1, 24, 24);
+        plane = new Plane(1, 1, 3, 3);
 
 
         Material material = new Material();
@@ -64,11 +72,19 @@ public class Renderer extends RajawaliRenderer {
         } catch (ATexture.TextureException e){
             Log.d("Debug", "TEXTURE EXCEPTION");
         }
+
         getCurrentScene().addChild(cube);
+        getCurrentScene().addChild(sphere);
+        getCurrentScene().addChild(plane);
+
+        sphere.setVisible(false);
+        plane.setVisible(false);
+
+
         cube.setRotY(cube.getRotY() + 45);
         cube.setRotY(cube.getRotX() + 45);
         cube.setMaterial(material);
-
+        currentObject = cube;
 
         getCurrentCamera().setZ(4.2f);
     }
@@ -76,15 +92,80 @@ public class Renderer extends RajawaliRenderer {
     @Override
     public void onRender(final long elapsedTime, final double deltaTime) {
         super.onRender(elapsedTime, deltaTime);
-        cube.rotate(Vector3.Axis.Y, 0.5);
+
+        if(currentXRotation > 0){
+            currentObject.rotate(Vector3.Axis.X, 1);
+            currentXRotation -= .5f;
+            if(currentXRotation < 5.0f){
+                currentXRotation = 0;
+            }
+        }
+
+        if(currentXRotation < 0){
+            currentObject.rotate(Vector3.Axis.X, -1);
+            currentXRotation += .5f;
+            if(currentXRotation > 5.0f){
+                currentXRotation = 0;
+            }
+        }
+
+        if(currentYRotation < 0){
+            currentObject.rotate(Vector3.Axis.Y, 1);
+            currentYRotation += .5f;
+            if(currentYRotation > 5.0f){
+                currentYRotation = 0;
+            }
+        }
+
+        if(currentYRotation > 0){
+            currentObject.rotate(Vector3.Axis.Y, -1);
+            currentYRotation -= .5f;
+            if(currentYRotation < 5.0f){
+                currentYRotation = 0;
+            }
+        }
+
+        //Log.d("DEBUG", "CURRENTXROTATION: " + currentXRotation);
+        //Log.d("DEBUG", "CURRENTYROTATION: " + currentYRotation);
+
+
     }
 
     public void onTouchEvent(MotionEvent event){
 
-
     }
 
     public void onOffsetsChanged(float x, float y, float z, float w, int i, int j){
+
+    }
+
+    public void rotateCurrentObject(float x1, float x2, float y1, float y2){
+        if(x1 < x2){
+            //Left to right swipe
+            currentXRotation = x1 - x2;
+        }
+
+        if (x1 > x2){
+            //Right to left swipe
+            currentXRotation = x1 - x2;
+        }
+        if( y1 < y2){
+            //Up to down swipe
+            currentYRotation = y1 - y2;
+        }
+        if(y1 > y2){
+            //Down to up swipe
+            currentYRotation = y1 - y2;
+        }
+    }
+
+    public void scrollCurrentObject(float distanceX, float distanceY){
+        if(Math.abs(distanceX) > Math.abs(distanceY)){
+            currentYRotation = distanceX;
+        } else {
+            currentXRotation = distanceY;
+
+        }
 
     }
 
