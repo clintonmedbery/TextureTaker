@@ -12,27 +12,30 @@
         android:layout_height="@dimen/image_size"
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <SeekBar
         android:layout_width="@dimen/image_size"
         android:layout_height="wrap_content"
         android:id="@+id/cropBar"
-        android:layout_marginBottom="79dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/imageView"
-        android:layout_alignStart="@+id/imageView" />
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/saveButton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:text="@string/save_texture"
         android:id="@+id/saveButton"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="@color/button_background"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/textColor"
-        android:onClick="saveTexture" />
+        android:onClick="saveTexture"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" />
 
 </RelativeLayout>
