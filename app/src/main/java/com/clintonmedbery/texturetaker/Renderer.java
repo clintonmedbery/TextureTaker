@@ -56,7 +56,7 @@ public class Renderer extends RajawaliRenderer {
 
         cube = new Cube(2.0F);
         sphere = new Sphere(1, 24, 24);
-        plane = new Plane(2, 2, 3, 3);
+        plane = new Plane(3, 3, 3, 3, 2);
 
 
         Material material = new Material();
