@@ -18,7 +18,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,19 +29,23 @@
         <activity
             android:name=".PictureActivity"
             android:label="@string/title_activity_picture"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".RenderActivity"
             android:label="@string/title_activity_render"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
         </activity>
 
 
         <activity
             android:name=".ImagePickerActivity"
             android:label="@string/title_activity_image_picker"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 

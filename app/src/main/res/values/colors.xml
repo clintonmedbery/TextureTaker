@@ -3,4 +3,5 @@
 <resources>
     <color name ="textColor">#CFD3C4</color>
     <color name="button_background">#626A4D</color>
+    <color name="background">#3C3F41</color>
 </resources>

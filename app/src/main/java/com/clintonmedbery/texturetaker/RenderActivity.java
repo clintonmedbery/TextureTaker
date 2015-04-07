@@ -10,8 +10,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +42,7 @@ public class RenderActivity extends ActionBarActivity implements GestureDetector
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_render);
+
         relativeLayout = (RelativeLayout) findViewById(R.id.renderLayout);
 
         detector = new GestureDetectorCompat(this, this);
@@ -56,7 +55,7 @@ public class RenderActivity extends ActionBarActivity implements GestureDetector
         surface.setFrameRate(60.0);
         surface.setRenderMode(IRajawaliSurface.RENDERMODE_WHEN_DIRTY);
 
-        // Add mSurface to your root view
+        // Add surface to your root view
         addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
         renderer = new Renderer(this, picture);
@@ -75,28 +74,6 @@ public class RenderActivity extends ActionBarActivity implements GestureDetector
         surface.setLayoutParams(layoutParams);
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_render, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void setPlane(View view){
         renderer.switchToPlane();

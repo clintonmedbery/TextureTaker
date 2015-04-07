@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
 
     tools:context="com.clintonmedbery.texturetaker.PictureActivity"
-    android:background="@drawable/green_cup"
+    android:background="@drawable/footer_lodyas"
     android:nestedScrollingEnabled="false">
 
     <ImageView

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.DisplayMetrics;
@@ -46,17 +47,24 @@ public class PictureActivity extends ActionBarActivity {
 
         imageHeight = picture.getHeight();
         imageWidth = picture.getWidth();
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         screenHeight = metrics.heightPixels;
         screenWidth = metrics.widthPixels;
 
+
+        if(imageWidth > imageHeight){
+            picture = rotateBitmap(picture, 90);
+            imageHeight = picture.getHeight();
+            imageWidth = picture.getWidth();
+        }
+
         Log.d("Debug", "Image Height: " + String.valueOf(imageHeight));
         Log.d("Debug", "Image Width: " + String.valueOf(imageWidth));
         Log.d("Debug", "Screen Height: " + String.valueOf(screenHeight));
         Log.d("Debug", "Screen Width: " + String.valueOf(screenWidth));
-
 
         pixels = new int[imageHeight * imageWidth];
         picture.getPixels(pixels, 0, imageWidth, 0, screenHeight/4, imageWidth, imageWidth);
@@ -89,11 +97,13 @@ public class PictureActivity extends ActionBarActivity {
 
     }
 
+    public static Bitmap rotateBitmap(Bitmap source, float angle)
+    {
 
-
-
-
-
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
 
     public void saveTexture(View view){
         Log.d("Debug", "Save Texture");
