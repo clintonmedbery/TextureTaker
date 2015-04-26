@@ -29,6 +29,8 @@ public class Renderer extends RajawaliRenderer {
     public Plane plane;
     public Context context;
     public Object3D currentObject;
+    private Material material;
+    private Texture texture;
 
     private float currentXRotation;
     private float currentYRotation;
@@ -59,14 +61,14 @@ public class Renderer extends RajawaliRenderer {
         plane = new Plane(3, 3, 3, 3, 2);
 
 
-        Material material = new Material();
+        material = new Material();
         material.setColor(0);
 
 
         material.enableLighting(true);
         material.setDiffuseMethod(new DiffuseMethod.Lambert());
 
-        Texture texture = new Texture("Texture", picture);
+        texture = new Texture("Texture", picture);
         try {
             material.addTexture(texture);
         } catch (ATexture.TextureException e){
@@ -197,5 +199,7 @@ public class Renderer extends RajawaliRenderer {
         plane.setVisible(false);
         currentObject = sphere;
     }
+
+
 
 }
