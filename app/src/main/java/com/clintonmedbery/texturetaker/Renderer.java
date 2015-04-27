@@ -120,7 +120,7 @@ public class Renderer extends RajawaliRenderer {
         }
 
         if(currentYRotation < 0){
-            currentObject.rotate(Vector3.Axis.Y, 1);
+            currentObject.rotate(Vector3.Axis.Y, -1);
             currentYRotation += .5f;
             if(currentYRotation > 5.0f){
                 currentYRotation = 0;
@@ -128,7 +128,7 @@ public class Renderer extends RajawaliRenderer {
         }
 
         if(currentYRotation > 0){
-            currentObject.rotate(Vector3.Axis.Y, -1);
+            currentObject.rotate(Vector3.Axis.Y, 1);
             currentYRotation -= .5f;
             if(currentYRotation < 5.0f){
                 currentYRotation = 0;
@@ -152,7 +152,7 @@ public class Renderer extends RajawaliRenderer {
     public void rotateCurrentObject(float x1, float x2, float y1, float y2){
         if(x1 < x2){
             //Left to right swipe
-            currentXRotation = x1 - x2;
+            currentXRotation = x2 - x1;
         }
 
         if (x1 > x2){

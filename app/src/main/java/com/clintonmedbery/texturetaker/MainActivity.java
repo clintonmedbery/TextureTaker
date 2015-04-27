@@ -1,7 +1,6 @@
 package com.clintonmedbery.texturetaker;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,11 +18,11 @@ public class MainActivity extends ActionBarActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int MEDIA_TYPE_IMAGE = 2;
-    static final int SELECT_PHOTO = 3;
+    static final int GALLERY_TO_RENDER = 3;
+    static final int GALLERY_TO_EMAIL = 4;
     public Uri imageUri;
 
 
-    public Bitmap picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +100,19 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void pickImage(View view){
-        //Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        //photoPickerIntent.setType("image/*");
 
-        //startActivityForResult(photoPickerIntent, SELECT_PHOTO);
 
         Intent pickerIntent = new Intent(this, ImagePickerActivity.class);
-
+        pickerIntent.putExtra("pickerType", GALLERY_TO_RENDER);
 
         startActivity(pickerIntent);
+    }
+
+    public void sendImage(View view){
+        Intent pickerIntent = new Intent(this, ImagePickerActivity.class);
+        pickerIntent.putExtra("pickerType", GALLERY_TO_EMAIL);
+
+        startActivity(pickerIntent);
+
     }
 }

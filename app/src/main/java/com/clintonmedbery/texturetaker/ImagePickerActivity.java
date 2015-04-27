@@ -1,12 +1,10 @@
 package com.clintonmedbery.texturetaker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 
@@ -21,7 +19,9 @@ public class ImagePickerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_image_picker);
 
         gridView = (GridView)findViewById(R.id.gridViewCustom);
-        customGallery = new CustomGallery(this);
+        Intent receiveIntent = getIntent();
+        int pickerType = receiveIntent.getIntExtra("pickerType", 2);
+        customGallery = new CustomGallery(this, pickerType);
         gridView.setAdapter(customGallery);
 
 
